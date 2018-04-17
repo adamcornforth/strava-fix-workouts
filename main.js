@@ -43,8 +43,27 @@ request({
 
         items.push.apply(items, json.models);
 
+        // Hacky, but it works
         if (items.length === json.total) {
-          // Hacky, but it works
+          for (var i = items.length - 1; i >= 0; i--) {
+            var item = items[i];
+            item.type = "Ride";
+            request.put(
+              {
+                url: 'https://www.strava.com/athlete/training_activities/' + items[i].id,
+                headers: headers,
+                json: item
+              },
+              function (error, response, body) {
+                if (error || response.statusCode != 200 || response.headers['content-type'].indexOf('application/json') === -1) {
+                  console.log('error - Check headers', error, body);
+                  return;
+                }
+
+                console.log("Done: " + body.type + ' ' + body.name + ' ' + body['start_date'] + ' ' + body['distance'] + 'mi');
+              }
+            );
+          }
         }
       });
     }
