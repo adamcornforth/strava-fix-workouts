@@ -4,6 +4,8 @@ Garmin's Vivosmart HR watch doesn't upload rides to Strava as "Rides", it upload
 
 This is a little script that changes workouts from "workouts" to "rides".
 
+> Note: I've invalidated the token that is in the source code. Try it if you want but it won't work :)
+
 ## Instructions 
 
 Install with `npm install`, run with `node main.js`. 
